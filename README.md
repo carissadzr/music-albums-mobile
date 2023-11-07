@@ -1,6 +1,6 @@
-Nama : Carissa Aida Zahra
-NPM : 2206082543
-Kelas : PBP D
+### Carissa Aida Zahra (2206082543) - PBP D
+Current README.md : Tugas 7
+
 
 ## Tugas 7
 **1. Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?**
