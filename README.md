@@ -3,18 +3,18 @@ NPM : 2206082543
 Kelas : PBP D
 
 ## Tugas 7
-*1. Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?*
-*Stateless Widget*
+**1. Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?**
+**Stateless Widget**
 - Tidak menyimpan keadaan internal dan kontennya tetap konstan. Biasanya digunakan untuk komponen yang statis dan tidak berubah, seperti teks, ikon, atau tampilan yang tidak tergantung pada data yang berubah.
 - Lebih efisien karena tidak memerlukan pembaruan berkelanjutan. Dibangun sekali dan tidak mengalami perubahan selama siklus hidup widget.
 - Mudah digunakan dan cocok untuk tampilan yang sederhana tanpa interaksi pengguna yang kompleks.
 
-*Stateful Widget*
+**Stateful Widget**
 - Memiliki keadaan internal yang dapat berubah selama siklus hidup widget. Digunakan untuk komponen yang perlu diperbarui secara dinamis, seperti daftar item yang dapat diperbarui atau formulir.
 - Memungkinkan pembaruan dinamis dan dapat merespons interaksi pengguna. Misalnya, dapat merespons tindakan seperti ketukan atau gesekan.
 - Lebih kompleks karena memerlukan kode tambahan untuk mengelola keadaan dan pemahaman yang lebih mendalam tentang siklus hidup widget.
 
-*2. Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing*
+**2. Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing**
 
 - MyHomePage: Widget khusus StatelessWidget ini mewakili halaman utama aplikasi. Ini berisi daftar item toko dan menggunakan GridView untuk menampilkan kartu-kartu toko. Tujuannya adalah untuk menampilkan daftar item toko dalam tata letak halaman utama.
 - Icon: Widget ini adalah bagian dari Flutter dan digunakan untuk menampilkan ikon dalam aplikasi. Dalam tugas ini, Icon digunakan untuk menampilkan ikon yang sesuai dengan setiap item toko.
@@ -26,7 +26,7 @@ Kelas : PBP D
 - AppBar: Widget ini digunakan untuk membuat bilah atas (app bar) dalam Scaffold. Ini menampilkan judul aplikasi dan latar belakang yang sesuai.
 - Text: Widget ini adalah bagian dari Flutter dan digunakan untuk menampilkan teks dalam aplikasi. Dalam tugas ini, Text digunakan untuk menampilkan judul “Music Albums” dan nama item toko.
 
-*3. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)*
+**3. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)**
 
 ### Instalasi Flutter dan Pembuatan Proyek
 Untuk mengimplementasikan tugas ini, pertama saya menginstall flutter di device saya terlebih dahulu. Kemudian saya membuka _command prompt_ pada direktori tempat saya akan menyimpan proyek ini. Lalu, saya membuat proyek dengan perintah berikut
@@ -46,6 +46,7 @@ import 'package:flutter/material.dart';
 
 Dari file `main.dart`, pindahkan (cut) kode baris ke-39 hingga akhir yang berisi kedua class di bawah ini:
 
+```
 class MyHomePage ... {
     ...
 }
@@ -54,6 +55,7 @@ class _MyHomePageState ... {
     ...
 }
 
+```
 ke file `menu.dart`.
 
 
