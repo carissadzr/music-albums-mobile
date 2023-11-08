@@ -11,7 +11,7 @@ class ShopFormPage extends StatefulWidget {
 class _ShopFormPageState extends State<ShopFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
-  int _price = 0;
+  int _amount = 0;
   String _description = "";
 
   @override
@@ -23,7 +23,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
             'Add New Album',
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 255, 212, 178),
+        backgroundColor: Color.fromARGB(255, 255, 246, 189),
         foregroundColor: Colors.black,
       ),
       drawer: const LeftDrawer(), // Tambahkan drawer yang sudah dibuat di sini
@@ -60,15 +60,15 @@ class _ShopFormPageState extends State<ShopFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Price",
-                    labelText: "Price",
+                    hintText: "Amount of Songs",
+                    labelText: "Amount of Songs",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _price = int.parse(value!); 
+                      _amount = int.parse(value!); 
                     });
                   },
                   validator: (String? value) {
@@ -76,7 +76,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                       return "Harga tidak boleh kosong!";
                     }
                     if (int.tryParse(value) == null) {
-                      return "Price value must be a number!";
+                      return "amount value must be a number!";
                     }
                     return null;
                   },
@@ -119,14 +119,14 @@ class _ShopFormPageState extends State<ShopFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Album has been successfully added'),
+                              title: const Text('Album has been successfully added!'),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Nama: $_name'),
-                                    Text('Harga: $_price'),
-                                    Text('Deskripsi: $_description'),
+                                    Text('Album Title: $_name'),
+                                    Text('Amount of Songs: $_amount'),
+                                    Text('Description: $_description'),
                                   ],
                                 ),
                               ),
