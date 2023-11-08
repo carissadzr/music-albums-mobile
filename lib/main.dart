@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_albums_mobile/menu.dart';
+import 'package:music_albums_mobile/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
