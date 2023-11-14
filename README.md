@@ -1,5 +1,5 @@
 ### Carissa Aida Zahra (2206082543) - PBP D
-Current README.md : Tugas 7
+Current README.md : Tugas 7, 8
 
 
 ## Tugas 7
@@ -222,4 +222,402 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
+```
+
+## Tugas 8
+**1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement(), disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!**
+
+**Metode push():** Metode ini digunakan untuk menambahkan sebuah route baru ke dalam tumpukan (stack) route yang diatur oleh Navigator. Ketika metode ini dipanggil, route yang ditambahkan akan ditempatkan di posisi teratas stack. Ini berarti route ini akan langsung ditampilkan kepada pengguna. Metode push() sangat berguna untuk menavigasi ke halaman baru tanpa menghilangkan riwayat navigasi sebelumnya, memungkinkan pengguna untuk kembali ke route sebelumnya jika diperlukan.
+
+**Metode pop():** Metode ini digunakan untuk menghapus route paling atas dari stack route. Ini biasanya route yang saat ini ditampilkan pada layar pengguna. Dengan menghapus route ini, Navigator kemudian akan menampilkan route yang berada tepat di bawahnya dalam stack. Metode ini sering digunakan untuk kembali ke halaman sebelumnya, seperti tombol "kembali" pada banyak aplikasi.
+
+**Metode pushReplacement():** Metode ini adalah kombinasi dari push() dan pop(). Ia menghapus route yang saat ini ditampilkan (seperti pop()) dan segera menggantikannya dengan route baru (seperti push()). Ini berguna ketika ingin menavigasi ke halaman baru tetapi tidak ingin pengguna dapat kembali ke halaman saat ini, misalnya setelah menyelesaikan proses atau transaksi.
+
+
+**2. Jelaskan masing-masing layout widget pada Flutter dan konteks penggunaannya masing-masing!**
+- **Column dan Row:** Untuk layout linear vertikal dan horizontal. Column mengatur child widgets secara vertikal, sementara Row mengaturnya secara horizontal. Cocok untuk membuat layout yang sederhana dan linear.
+- **Stack:** Memungkinkan widget ditumpuk satu di atas yang lain. Berguna untuk membuat overlay atau efek yang membutuhkan posisi widget secara bebas.
+- **Container:** Widget serba guna yang dapat dikonfigurasi untuk spacing, padding, border, dan background. Cocok untuk wrapping widget lain dengan karakteristik tertentu.
+- **GridView:** Menampilkan item dalam grid. Berguna untuk menampilkan data dalam bentuk grid seperti galeri foto atau kisi produk.
+- **ListView:** Menampilkan daftar item yang bisa scroll. Cocok untuk daftar item seperti daftar email atau feed berita.
+- **Flex dan Expanded:** Untuk membuat layout yang fleksibel dengan menggunakan konsep flexbox. Expanded mengambil ruang yang tersedia, berguna untuk menyesuaikan child widget dalam Flex.
+
+**3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!**I
+TextFormField digunakan untuk memungkinkan pengguna memasukkan teks serta memberikan fitur tambahan seperti validasi input, yang memudahkan pengelolaan form
+- **Album Title:** Untuk judul album
+- **Amount of Songs:** Untuk jumlah lagu, dengan validasi untuk memastikan input adalah angka
+- **Description:** Untuk deskripsi album
+
+**4. Bagaimana penerapan clean architecture pada aplikasi Flutter?**
+Clean Architecture di Flutter melibatkan pemisahan kode menjadi lapisan yang berbeda, yaitu
+- **Presentation Layer:** Terdiri dari widgets dan screens. Fokus pada bagaimana aplikasi terlihat dan berinteraksi dengan pengguna.
+- **Business Logic Layer (BLL):** Berisi logic aplikasi. Di sini, penggunaan Provider, Bloc, atau MobX dapat membantu dalam mengelola state dan logic aplikasi.
+- **Data Layer:** Terdiri dari model data, akses database, dan network calls. Fokus pada pengelolaan data aplikasi.
+
+**5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)**
+
+### Tutorial: Menambahkan Drawer Menu Untuk Navigasi
+Pertama, buat berkas baru di dalam direktori baru widgets dengan nama `left_drawer.dart.` lalu ambahkan kode berikut ke dalam berkas `left_drawer.dart.`
+
+```
+import 'package:flutter/material.dart';
+
+class LeftDrawer extends StatelessWidget {
+  const LeftDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          const DrawerHeader(
+            // TODO: Bagian drawer header
+          ),
+          // TODO: Bagian routing
+        ],
+      ),
+    );
+  }
+}
+```
+
+Berikutnya, tambahkan impor untuk halaman-halaman yang kita ingin masukkan navigasinya ke dalam Drawer Menu. Pada contoh ini, kita akan menambahkan navigasi ke halaman MyHomePage dan ShopFormPage serta memasukkan routing untuk halaman-halaman yang diimpor
+
+```
+import 'package:flutter/material.dart';
+import 'package:music_albums_mobile/menu.dart';
+// halaman ShortFormPage
+
+...
+ListTile(
+  leading: const Icon(Icons.home_outlined),
+  title: const Text('Halaman Utama'),
+  // Bagian redirection ke MyHomePage
+  onTap: () {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyHomePage(),
+        ));
+  },
+),
+ListTile(
+  leading: const Icon(Icons.add_shopping_cart),
+  title: const Text('Tambah Produk'),
+  // Bagian redirection ke ShopFormPage
+  onTap: () {
+    /*
+    TODO: Buatlah routing ke ShopFormPage di sini,
+    setelah halaman ShopFormPage sudah dibuat.
+    */
+  },
+),
+...
+
+```
+
+Lalu hias drawer dengan potongan kode berikut lalu masukkan drawer tersebut ke halaman yang ingin kamu tambahkan drawer. Dalam hal ini saya memasukkannya ke dalam file `menu.dart.`
+
+```
+...
+const DrawerHeader(
+  decoration: BoxDecoration(
+    color: Color.fromARGB(255, 134, 200, 188),
+  ),
+  child: Column(
+    children: [
+      Text(
+        'Music Albums',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      Padding(padding: EdgeInsets.all(10)),
+      Text(
+        "Keep track of your favorite albums!",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 15,
+          color: Colors.white,
+        ),
+      ),
+...
+
+// menu.dart
+
+// Impor drawer widget
+import 'package:music_albums_mobile/widgets/left_drawer.dart';
+
+...
+return Scaffold(
+  appBar: AppBar(
+    title: const Text(
+      'Shopping List',
+    ),
+    backgroundColor: Colors.indigo,
+    foregroundColor: Colors.white,
+  ),
+  // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
+  drawer: const LeftDrawer(),
+...
+``` 
+
+Tambahkan pula drawer ke halaman ShopFormPage jika halaman tersebut sudah dibuat.
+
+### Tutorial: Menambahkan Form dan Elemen Input
+Buat berkas baru pada direktori `lib` dengan nama `shoplist_form.dart` lalu tambahkan potongan kode berikut
+
+```
+import 'package:flutter/material.dart';
+// TODO: Impor drawer yang sudah dibuat sebelumnya
+
+class ShopFormPage extends StatefulWidget {
+    const ShopFormPage({super.key});
+
+    @override
+    State<ShopFormPage> createState() => _ShopFormPageState();
+}
+
+class _ShopFormPageState extends State<ShopFormPage> {
+    @override
+    Widget build(BuildContext context) {
+        return Placeholder();
+    }
+}
+```
+
+Ubah widget Placeholder dengan potongan kode berikut agar terdapat wadah bagi input field widget dan membuat child widget bisa di scroll.
+
+```
+Scaffold(
+  appBar: AppBar(
+    title: const Center(
+      child: Text(
+        'Form Tambah Produk',
+      ),
+    ),
+    backgroundColor: Colors.indigo,
+    foregroundColor: Colors.white,
+  ),
+  // TODO: Tambahkan drawer yang sudah dibuat di sini
+  body: Form(
+    child: SingleChildScrollView(),
+  ),
+);
+
+```
+
+Untuk menambahkan handler dari form state, validasi form, dan penyimpanan form, buat variabel baru bernama `_formKey` lalu tambahkan ke dalam atribut `key` milik widget Form. Setelah itu, buat beberapa variabel untuk menyimpan input dari tiap field yang akan dibuat.
+
+
+```
+...
+class _ShopFormPageState extends State<ShopFormPage> {
+    final _formKey = GlobalKey<FormState>();
+...
+
+...
+body: Form(
+     key: _formKey,
+     child: SingleChildScrollView(),
+),
+...
+
+class _ShopFormPageState extends State<ShopFormPage> {
+  final _formKey = GlobalKey<FormState>();
+  String _name = "";
+  int _price = 0;
+  String _description = "";
+...
+
+```
+
+Buatlah widget Column sebagai child dari SingleChildScrollView.
+
+...
+body: Form(
+      key: _formKey,
+      child: SingleChildScrollView(
+        child: Column()
+      ),
+...
+
+Buatlah widget TextFormField yang dibungkus oleh Padding sebagai salah satu children dari widget Column. Setelah itu, tambahkan atribut crossAxisAlignment untuk mengatur alignment children dari Column.
+
+```
+...
+child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: "Album Title",
+          labelText: "Album Title",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        onChanged: (String? value) {
+          setState(() {
+            _name = value!;
+          });
+        },
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return "Title cannot be empty!";
+          }
+          return null;
+        },
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: "Amount of Songs",
+          labelText: "Amount of Songs",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        onChanged: (String? value) {
+          setState(() {
+            _amount = int.parse(value!); 
+          });
+        },
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return "Harga tidak boleh kosong!";
+          }
+          if (int.tryParse(value) == null) {
+            return "amount value must be a number!";
+          }
+          return null;
+        },
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: "Description",
+          labelText: "Description",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+        ),
+        onChanged: (String? value) {
+          setState(() {
+            _description = value!; 
+          });
+        },
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return "Description cannot be empty!";
+          }
+          return null;
+        },
+      ),
+    ),
+...
+```
+
+Buatlah tombol sebagai child selanjutnya dari Column. Bungkus tombol ke dalam widget Padding dan Align. Kali ini kita tidak akan menyimpan data ke dalam database, namun kita akan memunculkannya pada pop-up yang akan muncul setelah tombol ditekan.
+
+```
+...
+Align(
+  alignment: Alignment.bottomCenter,
+  child: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all(Colors.indigo),
+      ),
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {}
+      },
+      child: const Text(
+        "Save",
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
+  ),
+),
+...
+```
+
+### Tutorial: Memunculkan Data
+Untuk memunculkan data, tambahkan fungsi showDialog() pada bagian onPressed() dan munculkan widget AlertDialog pada fungsi tersebut dan tambahkan ke reset form.
+
+```
+...
+child: ElevatedButton(
+  style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 212, 178)),
+  ),
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Album has been successfully added!'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Album Title: $_name'),
+                  Text('Amount of Songs: $_amount'),
+                  Text('Description: $_description'),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+      _formKey.currentState!.reset();
+    }
+  },
+  child: const Text(
+    "Save",
+    style: TextStyle(color: Colors.black),
+  ),
+),
+...
+```
+
+### Tutorial: Menambahkan Fitur Navigasi pada Tombol
+Pada widget ShopItem pada file `menu.dart` yang sudah dibuat, tambahkan kode ScaffoldMessenger yang menampilkan snackbar agar kode yang terletak pada atribut onTap dari InkWell dapat melakukan navigasi ke route lain. Gunakan Navigator.push() agar pengguna dapat menekan tombol Back untuk kembali ke halaman menu dan Navigator.pop() agar membuat kode dalam program untuk kembali ke halaman menu.
+
+```
+...
+  onTap: () {
+    // Memunculkan SnackBar ketika diklik
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+          content: Text("Kamu telah menekan tombol ${item.name}!")));
+
+    // Navigate ke route yang sesuai (tergantung jenis tombol)
+    if (item.name == "Tambah Produk") {
+      // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup ShopFormPage.
+    }
+
+  },
+...
 ```

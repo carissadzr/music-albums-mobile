@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_albums_mobile/screens/view_albums.dart';
 import 'package:music_albums_mobile/screens/shoplist_form.dart';
 
 class ShopItem {
@@ -8,6 +9,13 @@ class ShopItem {
 
   ShopItem(this.name, this.icon, this.backgroundColor);
 }
+
+class ShopModel {
+  List<ShopItem> items;
+
+  ShopModel(this.items);
+}
+
 
 class ShopCard extends StatelessWidget {
   final ShopItem item;
@@ -28,7 +36,14 @@ class ShopCard extends StatelessWidget {
             ..showSnackBar(SnackBar(
               content: Text("You selected ${item.name}. Good choice!"),
             ));
-
+          // if (item.name == "View Album") {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => ProductListPage(products),
+          //     ),
+          //   );
+          // }
           if (item.name == "Add Album") {
             Navigator.push(
               context,
