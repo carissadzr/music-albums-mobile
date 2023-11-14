@@ -243,6 +243,7 @@ class MyHomePage extends StatelessWidget {
 - **Flex dan Expanded:** Untuk membuat layout yang fleksibel dengan menggunakan konsep flexbox. Expanded mengambil ruang yang tersedia, berguna untuk menyesuaikan child widget dalam Flex.
 
 **3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!**I
+
 TextFormField digunakan untuk memungkinkan pengguna memasukkan teks serta memberikan fitur tambahan seperti validasi input, yang memudahkan pengelolaan form
 - **Album Title:** Untuk judul album
 - **Amount of Songs:** Untuk jumlah lagu, dengan validasi untuk memastikan input adalah angka
@@ -437,6 +438,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
 
 Buatlah widget Column sebagai child dari SingleChildScrollView.
 
+```
 ...
 body: Form(
       key: _formKey,
@@ -444,8 +446,9 @@ body: Form(
         child: Column()
       ),
 ...
+```
 
-Buatlah widget TextFormField yang dibungkus oleh Padding sebagai salah satu children dari widget Column. Setelah itu, tambahkan atribut crossAxisAlignment untuk mengatur alignment children dari Column.
+Buatlah widget TextFormField yang dibungkus oleh Padding sebagai salah satu children dari widget Column. Setelah itu, tambahkan atribut `crossAxisAlignment` untuk mengatur alignment children dari Column.
 
 ```
 ...
