@@ -643,7 +643,7 @@ CookieRequest di Flutter adalah kelas yang digunakan untuk menangani cookie dala
 - Proses di Django: Django memproses data, melakukan autentikasi, dan mengembalikan respons (misalnya, token autentikasi).
 - Tampil menu di Flutter: Setelah autentikasi berhasil, Flutter menerima respons dan menampilkan menu atau navigasi selanjutnya.
 
-**5.Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.**
+**5. Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.**
 - **MaterialApp:** Widget ini membungkus sejumlah widget yang membentuk aplikasi yang menggunakan material design. Di sini, ia menetapkan tema aplikasi dan halaman awal.
 -**Scaffold:** Menyediakan kerangka dasar untuk tata letak visual material design, seperti appbars, body, floating action buttons, drawers, dan lainnya.
 - **AppBar:** Widget ini menampilkan bar di bagian atas layar, biasanya menampilkan judul dan sering digunakan untuk navigasi.
