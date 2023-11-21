@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_albums_mobile/screens/menu.dart';
 import 'package:music_albums_mobile/screens/shoplist_form.dart';
+import 'package:music_albums_mobile/screens/list_product.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({Key? key});
@@ -49,6 +50,17 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('View Albums'),
+            onTap: () {
+                // Route menu ke halaman produk
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductPage()),
+                );
+            },
+        ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text('Add Album'),

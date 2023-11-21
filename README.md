@@ -242,7 +242,7 @@ class MyHomePage extends StatelessWidget {
 - **ListView:** Menampilkan daftar item yang bisa scroll. Cocok untuk daftar item seperti daftar email atau feed berita.
 - **Flex dan Expanded:** Untuk membuat layout yang fleksibel dengan menggunakan konsep flexbox. Expanded mengambil ruang yang tersedia, berguna untuk menyesuaikan child widget dalam Flex.
 
-**3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!**I
+**3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!**
 
 TextFormField digunakan untuk memungkinkan pengguna memasukkan teks serta memberikan fitur tambahan seperti validasi input, yang memudahkan pengelolaan form
 - **Album Title:** Untuk judul album

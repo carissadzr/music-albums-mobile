@@ -14,8 +14,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
   int _amount = 0;
   String _description = "";
 
-  @override
-  Widget build(BuildContext context) {
+@override
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -113,7 +113,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 255, 212, 178)),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         showDialog(
                           context: context,
