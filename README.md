@@ -889,3 +889,326 @@ class _LoginPageState extends State<LoginPage> {
 ```
 
 Pada file `main.dart`, pada `Widget MaterialApp(...)`, ubah `home: MyHomePage()` menjadi `home: LoginPage()`
+
+#### Pembuatan Model Kustom
+1. Pertama, buka endpoint JSON yang sudah dibuat sebelumnya lalu salin data JSON dan buka situs web Quicktype
+2. Pada situs web Quicktype, ubahlah setup name menjadi Product, source type menjadi JSON, dan language menjadi Dart
+3. Tempel data JSON yang telah disalin sebelumnya ke dalam textbox yang tersedia pada Quicktype
+4. Klik pilihan Copy Code pada Quicktype
+5. Setelah mendapatkan kode model melalui Quicktype, buka kembali proyek Flutter, buatlah file baru pada folder lib/models dengan nama product.dart, dan tempel kode yang sudah disalin dari Quicktype
+
+### Penerapan Fetch Data dari Django Untuk Ditampilkan ke Flutter
+#### Menambahkan Dependensi HTTP
+
+1. Jalankan `flutter pub add http` pada terminal proyek Flutter untuk menambahkan package http.
+
+2. Pada file `android/app/src/main/AndroidManifest.xml`, tambahkan kode berikut untuk memperbolehkan akses Internet pada aplikasi Flutter yang sedang dibuat.
+
+```
+...
+    <application>
+    ...
+    </application>
+    <!-- Required to fetch data from the Internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+...
+```
+
+#### Melakukan Fetch Data dari Django
+1. Buatlah file baru pada folder `lib/screens` dengan nama `list_product.dart`
+2. Pada file `list_product.dart`, impor library yang dibutuhkan 
+
+```
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:music_albums_mobile/models/product.dart';
+...
+
+```
+
+3. Salinlah potongan kode berikut pada `screens/list_product.dart` dan mengimpor file yang diperlukan.
+
+```
+...
+import 'package:music_albums_mobile/widgets/left_drawer.dart';
+
+class ProductPage extends StatefulWidget {
+    const ProductPage({Key? key}) : super(key: key);
+
+    @override
+    _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+Future<List<Product>> fetchProduct() async {
+    var url = Uri.parse(
+        'http://localhost:8000/json/');
+    var response = await http.get(
+        url,
+        headers: {"Content-Type": "application/json"},
+    );
+
+    // melakukan decode response menjadi bentuk json
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+    // melakukan konversi data json menjadi object Product
+    List<Product> list_product = [];
+    for (var d in data) {
+        if (d != null) {
+            list_product.add(Product.fromJson(d));
+        }
+    }
+    return list_product;
+}
+
+@override
+Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+        title: const Text('Product'),
+        ),
+        drawer: const LeftDrawer(),
+        body: FutureBuilder(
+            future: fetchProduct(),
+            builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.data == null) {
+                    return const Center(child: CircularProgressIndicator());
+                } else {
+                    if (!snapshot.hasData) {
+                    return const Column(
+                        children: [
+                        Text(
+                            "Tidak ada data produk.",
+                            style:
+                                TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        ),
+                        SizedBox(height: 8),
+                        ],
+                    );
+                } else {
+                    return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, index) => Container(
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                padding: const EdgeInsets.all(20.0),
+                                child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                    Text(
+                                    "${snapshot.data![index].fields.name}",
+                                    style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                    ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text("${snapshot.data![index].fields.amount}"),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                        "${snapshot.data![index].fields.description}")
+                                ],
+                                ),
+                            ));
+                    }
+                }
+            }));
+    }
+}
+```
+
+4. Tambahkan halaman `list_product.dart` ke `widgets/left_drawer.dart` dengan menambahkan kode berikut.
+
+```
+// Kode ListTile Menu
+...
+ListTile(
+    leading: const Icon(Icons.shopping_basket),
+    title: const Text('Daftar Produk'),
+    onTap: () {
+        // Route menu ke halaman produk
+        Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProductPage()),
+        );
+    },
+),
+...
+
+```
+
+5. Ubah fungsi tombol `View Albums` pada halaman utama agar mengarahkan ke halaman `ProductPage`. Lakukan redirection dengan menambahkan else if setelah kode `if(...){...}` di bagian akhir `onTap: () { }` yang ada pada file `widgets/shop_card.dart`
+
+```
+...
+else if (item.name == "View Albums") {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const ProductPage()));
+      }
+...
+
+```
+
+6. Impor file yang dibutuhkan saat menambahkan ProductPage ke `left_drawer.dart` dan `shop_card.dart`.
+7. Jalankan aplikasi dan cobalah untuk menambahkan beberapa Product di situs web
+
+### Integrasi Form Flutter Dengan Layanan Django
+Buatlah sebuah fungsi view baru pada `main/views.py` aplikasi Django dengan potongan kode berikut.
+
+```
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Product.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+```
+
+Tambahkan path baru pada `main/urls.py` dengan kode berikut.
+
+```
+path('create-flutter/', create_product_flutter, name='create_product_flutter'),
+```
+
+#### Langkah-langkah berikut akan dilakukan pada kode proyek Flutter.
+Hubungkan halaman `shoplist_form.dart` dengan `CookieRequest` dengan menambahkan kode berikut.
+
+```
+...
+@override
+Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
+    return Scaffold(
+...
+
+```
+
+Ubahlah perintah pada `onPressed: ()` button tambah menjadi kode berikut.
+
+```
+...
+onPressed: () async {
+    if (_formKey.currentState!.validate()) {
+        // Kirim ke Django dan tunggu respons
+        final response = await request.postJson(
+        "http://localhost:8000/create-flutter/",
+        jsonEncode(<String, String>{
+            'name': _name,
+            'amount': _amount.toString(),
+            'description': _description,
+        }));
+        if (response['status'] == 'success') {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(
+            content: Text("Produk baru berhasil disimpan!"),
+            ));
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MyHomePage()),
+            );
+        } else {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(
+                content:
+                    Text("Terdapat kesalahan, silakan coba lagi."),
+            ));
+        }
+    }
+},
+...
+
+```
+
+Lakukan quick fix pada baris-baris yang bermasalah untuk mengimpor file yang dibutuhkan lalu jalankan ulang aplikasi dan coba untuk menambahkan transaksi baru dari aplikasi Flutter.
+
+### Implementasi Fitur Logout
+Buatlah sebuah metode view untuk logout pada `authentication/views.py`.
+
+```
+from django.contrib.auth import logout as auth_logout
+...
+@csrf_exempt
+def logout(request):
+    username = request.user.username
+
+    try:
+        auth_logout(request)
+        return JsonResponse({
+            "username": username,
+            "status": True,
+            "message": "Logout berhasil!"
+        }, status=200)
+    except:
+        return JsonResponse({
+        "status": False,
+        "message": "Logout gagal."
+        }, status=401)
+
+```
+
+Tambahkan path baru pada `authentication/urls.py` dengan kode berikut.
+
+```
+path('logout/', logout, name='logout'),
+```
+
+#### Langkah-langkah berikut akan dilakukan pada kode proyek Flutter.
+
+Buka file `lib/widgets/shop_card.dart`` dan tambahkan potongan kode berikut.
+
+```
+...
+@override
+Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    return Material(
+...
+```
+
+Ubahlah perintah `onTap: () {...}` pada widget `Inkwell` menjadi `onTap: () async {...}` agar widget `Inkwell` dapat melakukan proses logout secara asinkronus.
+
+Tambahkan kode berikut ke dalam `async {...}` di bagian akhir
+
+```
+...
+// statement if sebelumnya
+// tambahkan else if baru seperti di bawah ini
+else if (item.name == "Logout") {
+        final response = await request.logout(
+            "http://localhost:8000/auth/logout/");
+        String message = response["message"];
+        if (response['status']) {
+          String uname = response["username"];
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("$message Sampai jumpa, $uname."),
+          ));
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("$message"),
+          ));
+        }
+      }
+...
+```
+
+Jalankan ulang aplikasi dan coba untuk lakukan logout.
