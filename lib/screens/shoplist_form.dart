@@ -151,6 +151,23 @@ Widget build(BuildContext context) {
                   ),
                 ),
               ),
+              // Tombol untuk kembali ke menu utama
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Menggunakan Navigator.pop untuk kembali ke halaman sebelumnya
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Back to Main Menu",
+                    style: TextStyle(color: Color.fromARGB(255, 55, 50, 50)),
+                  ),
+                ),
+              ),
+            ),
             ],
           ),
         ),

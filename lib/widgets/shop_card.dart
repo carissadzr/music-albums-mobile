@@ -47,7 +47,7 @@ class ShopCard extends StatelessWidget {
               ),
             );
           }
-          else if (item.name == "View Album") {
+          else if (item.name == "View Albums") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
           }

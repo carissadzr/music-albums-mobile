@@ -6,7 +6,7 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<ShopItem> items = [
-    ShopItem("View Album", Icons.checklist, Color.fromARGB(255, 206, 237, 199)), // Ganti warna latar belakang sesuai preferensi Anda
+    ShopItem("View Albums", Icons.checklist, Color.fromARGB(255, 206, 237, 199)), // Ganti warna latar belakang sesuai preferensi Anda
     ShopItem("Add Album", Icons.add_shopping_cart, Color.fromARGB(255, 255, 246, 189)), // Ganti warna latar belakang sesuai preferensi Anda
     ShopItem("Logout", Icons.logout, Color.fromARGB(255, 255, 212, 178)), // Ganti warna latar belakang sesuai preferensi Anda
   ];
