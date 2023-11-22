@@ -19,7 +19,7 @@ class MyHomePage extends StatelessWidget {
           'Music Albums',
         ),
         backgroundColor: Color.fromARGB(255, 134, 200, 188),
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
       body: SingleChildScrollView(

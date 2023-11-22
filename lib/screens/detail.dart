@@ -11,17 +11,19 @@ class ProductDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(product.fields.name),
+        backgroundColor: Color.fromARGB(255, 134, 200, 188),
+        foregroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Name: ${product.fields.name}', style: TextStyle(fontSize: 20)),
+            Text('Album Name : ${product.fields.name}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 10),
-            Text('Amount: ${product.fields.amount}', style: TextStyle(fontSize: 20)),
+            Text('Amount of Songs : ${product.fields.amount}', style: TextStyle(fontSize: 20)),
             SizedBox(height: 10),
-            Text('Description: ${product.fields.description}', style: TextStyle(fontSize: 20)),
+            Text('Description : ${product.fields.description}', style: TextStyle(fontSize: 20)),
             // Add more attributes as needed
           ],
         ),

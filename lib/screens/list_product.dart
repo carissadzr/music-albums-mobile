@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:music_albums_mobile/models/product.dart';
-import 'package:music_albums_mobile/screens/detail.dart';
 import 'package:music_albums_mobile/widgets/left_drawer.dart';
 
 class ProductPage extends StatefulWidget {
@@ -14,7 +13,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('http://127.0.0.1:8000/json/'); // Removed extra slash
+    var url = Uri.parse('http://127.0.0.1:8000/json/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -34,7 +33,9 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product'),
+        title: const Text('Album Details'),
+        backgroundColor: Color.fromARGB(255, 134, 200, 188),
+        foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
       body: FutureBuilder(
@@ -118,11 +119,11 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text('Name: ${product.fields.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('Album Name : ${product.fields.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
-            Text('Amount: ${product.fields.amount}', style: TextStyle(fontSize: 18)),
+            Text('Amount of Songs : ${product.fields.amount}', style: TextStyle(fontSize: 18)),
             SizedBox(height: 10),
-            Text('Description: ${product.fields.description}', style: TextStyle(fontSize: 16)),
+            Text('Description : ${product.fields.description}', style: TextStyle(fontSize: 16)),
             // You can add more fields here, depending on the attributes of your Product model
           ],
         ),
