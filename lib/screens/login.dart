@@ -46,8 +46,8 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 255, 250, 220),
-              Color.fromARGB(255, 206, 237, 199)
+              Colors.white,
+              Colors.white
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -57,6 +57,9 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Logo atau gambar di sini
+            const SizedBox(height: 40), // Added space at the top for better layout
+            Icon(Icons.library_music, size: 100, color: Color.fromARGB(255, 134, 200, 188)), // Enlarged music icon
+            const SizedBox(height: 40), // Added space for a cleaner layout
             _buildTextField(_usernameController, 'Username', false),
             const SizedBox(height: 20),
             _buildTextField(_passwordController, 'Password', true),
